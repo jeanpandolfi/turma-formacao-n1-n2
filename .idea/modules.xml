@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/documentoservice/documentoservice.iml" filepath="$PROJECT_DIR$/documentoservice/documentoservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tarefaservice/tarefaservice.iml" filepath="$PROJECT_DIR$/tarefaservice/tarefaservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/turma-formacao-n1-n2.iml" filepath="$PROJECT_DIR$/.idea/turma-formacao-n1-n2.iml" />
+    </modules>
+  </component>
+</project>

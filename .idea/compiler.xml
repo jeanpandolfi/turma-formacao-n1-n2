@@ -6,8 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="tarefa_servico" />
+        <module name="documentoservice" />
+        <module name="tarefaservice" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="documentoservice" target="1.5" />
+      <module name="tarefaservice" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

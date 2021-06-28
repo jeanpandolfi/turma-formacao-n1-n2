@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  db-tarefa:
+    image: postgres:11.5-alpine
+    environment:
+      POSTGRES_PASSWORD: tarefa
+      POSTGRES_DB: tarefa
+    ports:
+      - 5432:5432
+    restart: always
+    networks:
+      - tarefa
+
+networks:
+  tarefa:
+    driver: bridge
