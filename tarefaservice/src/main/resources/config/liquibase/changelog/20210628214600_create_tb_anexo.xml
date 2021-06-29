@@ -1,0 +1,55 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="20210628214600-1" author="jeanpandolfi" >
+
+        <createTable  tableName="anexo" remarks="Tabela que armazena os anexos de uma tarefa">
+
+            <column name="id" remarks="Chave primária"
+                    type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="anexo_id"/>
+            </column>
+            <column name="titulo" remarks="Armazena o titulo do anexo"
+                    type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="caminho"
+                    remarks="Armazena o caminho para o minio"
+                    type="VARCHAR(400)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tamanho"
+                    remarks="Armazena o tamanho do arquivo em bytes"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tipo"
+                    remarks="Armazena o tipo do arquivo(extensão)"
+                    type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tarefa_id"
+                    remarks="Referencia a tarefa que o arquivo pertence"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20210628214600-2" author="jeanpandolfi">
+        <createSequence sequenceName="seq_anexo"
+                        startValue="1"
+                        incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="20210628214600-3" author="jean.pandolfi">
+        <addForeignKeyConstraint baseTableName="anexo"
+                                 baseColumnNames="tarefa_id"
+                                 constraintName="anexo_tarefa_fk"
+                                 referencedTableName="tarefa"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+
+ </databaseChangeLog>

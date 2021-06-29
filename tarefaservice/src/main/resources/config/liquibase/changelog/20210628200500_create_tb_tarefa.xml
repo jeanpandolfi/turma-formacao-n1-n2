@@ -1,0 +1,84 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="20210628200500-1" author="jeanpandolfi" >
+
+        <createTable  tableName="tarefa" remarks="Tabela que armazena os anexos de uma tarefa">
+
+            <column name="id" remarks="Chave primária"
+                    type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="tarefa_id"/>
+            </column>
+            <column name="titulo" remarks="Armazena o titulo da tarefa"
+                    type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricao"
+                    remarks="Armazena a descricao do arquivo"
+                    type="VARCHAR(1000)">
+            </column>
+            <column name="data_inicio_prevista"
+                    remarks="Armazena a data prevista de inicio da tarefa"
+                    type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_termino_prevista"
+                    remarks="Armazena a data de término prevista da tarefa"
+                    type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_inicio"
+                    remarks="Armazena a data real de inicio da tarefa"
+                    type="timestamp">
+            </column>
+            <column name="data_conclusao"
+                    remarks="Armazena a data real de término da tarefa"
+                    type="timestamp">
+            </column>
+            <column name="tipo"
+                    remarks="Armazena o tipo de tarefa"
+                    type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status"
+                    remarks="Armazena o status da tarefa"
+                    type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comentarios"
+                    remarks="Armazena os comentários da tarefa"
+                    type="VARCHAR(8000)">
+            </column>
+            <column name="tempo_previsto"
+                    remarks="Armazena o tempo que se espera gastar na tarefa"
+                    type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tempo_gasto"
+                    remarks="Armazena o tempo gasto real da tarefa"
+                    type="timestamp">
+            </column>
+            <column name="responsavel_id"
+                    remarks="Referencia o reponsável da tarefa"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20210628200500-2" author="jeanpandolfi">
+        <createSequence sequenceName="seq_tarefa"
+                        startValue="1"
+                        incrementBy="1"/>
+    </changeSet>
+    
+    <changeSet id="20210628200500-3" author="jean.pandolfi">
+        <addForeignKeyConstraint baseTableName="tarefa"
+                                 baseColumnNames="responsavel_id"
+                                 constraintName="tarefa_responsavel_fk"
+                                 referencedTableName="responsavel"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+ </databaseChangeLog>
