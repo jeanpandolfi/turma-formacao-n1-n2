@@ -1,7 +1,9 @@
 package com.jeanpandolfi.tarefaservice.service;
 
+import com.jeanpandolfi.tarefaservice.domain.Responsavel;
 import com.jeanpandolfi.tarefaservice.repository.ResponsavelRepository;
 import com.jeanpandolfi.tarefaservice.service.dto.ResponsavelDTO;
+import com.jeanpandolfi.tarefaservice.service.mapper.ResponsavelMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,22 +17,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class ResponsavelService{
 
     private final ResponsavelRepository responsavelRepository;
+    private final ResponsavelMapper responsavelMapper;
 
     public ResponsavelDTO save(ResponsavelDTO dto) {
-        return null;
+        return responsavelMapper.toDto(responsavelMapper.toEntity(dto));
     }
 
     @Transactional(readOnly = true)
     public Page<ResponsavelDTO> obterTodos(Pageable pageable) {
-        return null;
+        return responsavelRepository.findAll(pageable).map(responsavelMapper::toDto);
     }
 
     @Transactional(readOnly = true)
     public ResponsavelDTO obterPorId(Long id) {
-        return null;
+        Responsavel responsavel = responsavelRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
+        return responsavelMapper.toDto(responsavel);
     }
 
     public void deletarPorId(Long id) {
-
+        responsavelRepository.deleteById(id);
     }
 }

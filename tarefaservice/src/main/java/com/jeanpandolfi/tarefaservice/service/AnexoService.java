@@ -1,7 +1,9 @@
 package com.jeanpandolfi.tarefaservice.service;
 
+import com.jeanpandolfi.tarefaservice.domain.Anexo;
 import com.jeanpandolfi.tarefaservice.repository.AnexoRepository;
 import com.jeanpandolfi.tarefaservice.service.dto.AnexoDTO;
+import com.jeanpandolfi.tarefaservice.service.mapper.AnexoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,19 +17,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class AnexoService {
 
     private final AnexoRepository anexoRepository;
+    private final AnexoMapper anexoMapper;
 
     public AnexoDTO save(AnexoDTO dto) {
-        return null;
+        return anexoMapper.toDto(anexoMapper.toEntity(dto));
     }
 
     @Transactional(readOnly = true)
     public Page<AnexoDTO> obterTodos(Pageable pageable) {
-        return null;
+        return anexoRepository.findAll(pageable).map(anexoMapper::toDto);
     }
 
     @Transactional(readOnly = true)
     public AnexoDTO obterPorId(Long id) {
-        return null;
+        Anexo anexo = anexoRepository.findById(id).orElseThrow( () -> new RuntimeException("Não econtrado"));
+        return anexoMapper.toDto(anexo);
     }
 
     public void deletarPorId(Long id) {
