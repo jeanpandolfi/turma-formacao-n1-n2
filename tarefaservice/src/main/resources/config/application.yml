@@ -19,3 +19,7 @@ spring:
   liquibase:
     change-log: classpath:/config/liquibase/master.xml
     drop-first: true
+
+application:
+  feign:
+    documento: http://localhost:8081

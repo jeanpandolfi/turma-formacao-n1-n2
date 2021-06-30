@@ -1,7 +1,7 @@
 package com.jeanpandolfi.tarefaservice.service;
 
-import com.jeanpandolfi.tarefaservice.repository.ResponsavelRepository;
-import com.jeanpandolfi.tarefaservice.service.dto.ResponsavelDTO;
+import com.jeanpandolfi.tarefaservice.repository.TarefaRepository;
+import com.jeanpandolfi.tarefaservice.service.dto.TarefaDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,21 +12,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ResponsavelService{
+public class TarefaService{
 
-    private final ResponsavelRepository responsavelRepository;
+    private final TarefaRepository tarefaRepository;
 
-    public ResponsavelDTO save(ResponsavelDTO dto) {
+
+    public TarefaDTO save(TarefaDTO dto) {
         return null;
     }
 
     @Transactional(readOnly = true)
-    public Page<ResponsavelDTO> obterTodos(Pageable pageable) {
+    public Page<TarefaDTO> obterTodos(Pageable pageable) {
         return null;
     }
 
     @Transactional(readOnly = true)
-    public ResponsavelDTO obterPorId(Long id) {
+    public TarefaDTO obterPorId(Long id) {
         return null;
     }
 
