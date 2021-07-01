@@ -14,26 +14,30 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ResponsavelService{
+public class ResponsavelService implements AbstractService<ResponsavelDTO>{
 
     private final ResponsavelRepository responsavelRepository;
     private final ResponsavelMapper responsavelMapper;
 
+    @Override
     public ResponsavelDTO save(ResponsavelDTO dto) {
-        return responsavelMapper.toDto(responsavelMapper.toEntity(dto));
+        return responsavelMapper.toDto(responsavelRepository.save(responsavelMapper.toEntity(dto)));
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Page<ResponsavelDTO> obterTodos(Pageable pageable) {
         return responsavelRepository.findAll(pageable).map(responsavelMapper::toDto);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public ResponsavelDTO obterPorId(Long id) {
         Responsavel responsavel = responsavelRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
         return responsavelMapper.toDto(responsavel);
     }
 
+    @Override
     public void deletarPorId(Long id) {
         responsavelRepository.deleteById(id);
     }

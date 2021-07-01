@@ -32,8 +32,8 @@ public class Anexo implements Serializable {
     @Column(name = "titulo", nullable = false)
     private String titulo;
 
-    @Column(name = "caminho", nullable = false)
-    private String caminho;
+    @Column(name = "chave_minio", nullable = false)
+    private String chaveMinio;
 
     @Column(name = "tamanho", nullable = false)
     private Long tamanho;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,11 @@ public class TarefaResource {
 
     @PostMapping
     public ResponseEntity<TarefaDTO> salvar(@RequestBody TarefaDTO responsavelDTO){
+        return ResponseEntity.ok(tarefaService.save(responsavelDTO));
+    }
+
+    @PutMapping
+    public ResponseEntity<TarefaDTO> atualizar(@RequestBody TarefaDTO responsavelDTO){
         return ResponseEntity.ok(tarefaService.save(responsavelDTO));
     }
 
