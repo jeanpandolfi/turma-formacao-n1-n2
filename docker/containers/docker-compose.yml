@@ -21,7 +21,15 @@ services:
       - 9000:9000
     networks:
       - tarefa
-
+  elasticsearch-tarefa:
+    image: elasticsearch:7.6.2
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - "discovery.type=single-node"
+    networks:
+      - tarefa
 networks:
   tarefa:
     driver: bridge
