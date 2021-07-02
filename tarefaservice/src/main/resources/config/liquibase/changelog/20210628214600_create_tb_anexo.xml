@@ -14,8 +14,8 @@
                     type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="caminho"
-                    remarks="Armazena o caminho para o minio"
+            <column name="chave_minio"
+                    remarks="Armazena a key do arquivo no minio"
                     type="VARCHAR(400)">
                 <constraints nullable="false"/>
             </column>

@@ -11,6 +11,16 @@ services:
     restart: always
     networks:
       - tarefa
+  minio-tarefa:
+    image: minio/minio
+    environment:
+      - MINIO_ACCESS_KEY=minio
+      - MINIO_SECRET_KEY=minio123
+    command: server /data
+    ports:
+      - 9000:9000
+    networks:
+      - tarefa
 
 networks:
   tarefa:

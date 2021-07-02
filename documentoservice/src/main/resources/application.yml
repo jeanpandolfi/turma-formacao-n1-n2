@@ -4,3 +4,10 @@ server:
 spring:
   application:
     name: documentoservice
+
+application:
+  minio:
+    url: http://localhost:9000
+    accessKey: minio
+    secretKey: minio123
+    bucketName: documentos

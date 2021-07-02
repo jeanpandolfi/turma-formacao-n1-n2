@@ -13,11 +13,13 @@ public class AnexoDTO implements Serializable {
 
     private String titulo;
 
-    private String caminho;
-
     private Long tamanho;
 
     private String tipo;
+
+    private String bytes;
+
+    private String chaveMinio;
 
     private Long idTarefa;
 }
