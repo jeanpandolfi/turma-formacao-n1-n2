@@ -5,14 +5,17 @@ import com.jeanpandolfi.tarefaservice.domain.elasticsearch.TarefaDocument;
 import com.jeanpandolfi.tarefaservice.repository.TarefaRepository;
 import com.jeanpandolfi.tarefaservice.repository.search.TarefaSearchRepository;
 import com.jeanpandolfi.tarefaservice.service.dto.TarefaDTO;
+import com.jeanpandolfi.tarefaservice.service.event.TarefaEvent;
 import com.jeanpandolfi.tarefaservice.service.mapper.TarefaMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -20,12 +23,12 @@ public class TarefaService implements AbstractService<TarefaDTO>{
 
     private final TarefaRepository tarefaRepository;
     private final TarefaMapper tarefaMapper;
-    private final TarefaSearchRepository searchRepository;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     public TarefaDTO save(TarefaDTO dto) {
         Tarefa tarefa = tarefaRepository.save(tarefaMapper.toEntity(dto));
-        searchRepository.save(new TarefaDocument(tarefa.getId(), tarefa.getTitulo()));
+        applicationEventPublisher.publishEvent(new TarefaEvent(tarefa.getId()));
         return tarefaMapper.toDto(tarefa);
     }
 
@@ -45,5 +48,10 @@ public class TarefaService implements AbstractService<TarefaDTO>{
     @Override
     public void deletarPorId(Long id) {
         tarefaRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public TarefaDocument getDocument(Long id){
+        return tarefaRepository.getDocument(id);
     }
 }

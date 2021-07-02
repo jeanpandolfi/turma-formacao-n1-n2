@@ -25,8 +25,9 @@ public class TarefaResource {
     private final TarefaService tarefaService;
 
     @PostMapping
-    public ResponseEntity<TarefaDTO> salvar(@RequestBody TarefaDTO responsavelDTO){
-        return ResponseEntity.ok(tarefaService.save(responsavelDTO));
+    public ResponseEntity<TarefaDTO> salvar(@RequestBody TarefaDTO tarefaDTO){
+        log.debug("Requisição para savar uma tarefa {}", tarefaDTO);
+        return ResponseEntity.ok(tarefaService.save(tarefaDTO));
     }
 
     @PutMapping
