@@ -15,6 +15,8 @@ public class ElasticSearchConfiguration {
 
     private final ApplicationProperties properties;
 
+    public static final String ANALYZER = "trim_case_insensitive";
+
     @Bean
     public RestHighLevelClient client() {
         ClientConfiguration clientConfiguration
