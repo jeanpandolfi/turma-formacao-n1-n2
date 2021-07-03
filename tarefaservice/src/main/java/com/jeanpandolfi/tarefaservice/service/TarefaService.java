@@ -1,9 +1,8 @@
 package com.jeanpandolfi.tarefaservice.service;
 
 import com.jeanpandolfi.tarefaservice.domain.Tarefa;
-import com.jeanpandolfi.tarefaservice.domain.elasticsearch.TarefaDocument;
+import com.jeanpandolfi.tarefaservice.domain.document.TarefaDocument;
 import com.jeanpandolfi.tarefaservice.repository.TarefaRepository;
-import com.jeanpandolfi.tarefaservice.repository.search.TarefaSearchRepository;
 import com.jeanpandolfi.tarefaservice.service.dto.TarefaDTO;
 import com.jeanpandolfi.tarefaservice.service.event.TarefaEvent;
 import com.jeanpandolfi.tarefaservice.service.mapper.TarefaMapper;
