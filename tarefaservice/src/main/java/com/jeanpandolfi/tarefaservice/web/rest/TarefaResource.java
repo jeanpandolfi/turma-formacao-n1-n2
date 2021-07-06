@@ -2,6 +2,7 @@ package com.jeanpandolfi.tarefaservice.web.rest;
 
 import com.jeanpandolfi.tarefaservice.service.TarefaService;
 import com.jeanpandolfi.tarefaservice.service.dto.TarefaDTO;
+import com.jeanpandolfi.tarefaservice.service.filtro.TarefaFiltro;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -36,8 +37,8 @@ public class TarefaResource {
     }
 
     @GetMapping
-    public ResponseEntity<Page<TarefaDTO>> obterTodos(Pageable pageable){
-        return ResponseEntity.ok(tarefaService.obterTodos(pageable));
+    public ResponseEntity<Page<TarefaDTO>> obterTodos(TarefaFiltro filtro, Pageable pageable){
+        return ResponseEntity.ok(tarefaService.obterTodos(filtro, pageable));
     }
 
     @GetMapping("/{id}")

@@ -1,0 +1,57 @@
+<p-card header="Responsáveis">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-3">
+            <button pButton type="button" icon="pi pi-plus" label="Novo" (click)="novo()" ></button>
+        </div>
+        <div class="ui-g-12">
+
+            <p-table #tabela [columns]="cols" [lazy]="true" responsive="true" sortField="nome" [rows]="20"
+                     [rowsPerPageOptions]="[20, 30, 50]" [paginator]="true" [value]="responsaveis.content" selectionMode="single"
+                     [(selection)]="responsavelSelecionado" dataKey="id" [totalRecords]="responsaveis.totalElements"
+                     (onPage)="buscarResponsaveis()" (onSort)="buscarResponsaveis()" (onRowSelect)="editar()">
+
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns"  class="background-color-dark" [pSortableColumn]="col.sortField">
+                            <span class="color-header-table">{{col.header}}</span>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input pInputText type="text" [(ngModel)]="filtro.nome" (change)="buscarResponsaveis()"
+                                   class="ui-column-filter">
+                        </th>
+                        <th >
+                            <input pInputText type="text" [(ngModel)]="filtro.email" (change)="buscarResponsaveis()"
+                                   class="ui-column-filter">
+                        </th>
+                        <th class="background-color-white">
+                            <input pInputText type="text" [(ngModel)]="filtro.status" (change)="buscarResponsaveis()"
+                                   class="ui-column-filter">
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData">
+                        <td *ngFor="let col of columns">
+                            <ng-template [ngIf]="col.text">
+                                <span class="ui-column-title">{{col.header}}:</span>
+                                {{rowData[col.field]}}
+                            </ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="columns.length">
+                            Nenhum registro encontrado
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </div>
+    </div>
+</p-card>

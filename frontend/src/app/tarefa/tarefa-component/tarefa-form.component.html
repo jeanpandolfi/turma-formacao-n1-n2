@@ -1,0 +1,113 @@
+<p-card header="Tarefa">
+    <form [formGroup]="formTarefa" (ngSubmit)="salvar(formTarefa)" novalidate>
+        <p-fieldset legend="Dados da Terefa">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <div class="ui-g-6 ui-sm-12 p-field">
+                        <label for="titulo">Título*</label>
+                        <input pInputText type="text" id="titulo" formControlName="titulo">
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-sm-12 p-field">
+                    <label for="descricao">Descrição*</label>
+                    <textarea pInputTextarea id="descricao"formControlName="descricao" ></textarea>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-6 ui-sm-12 p-field">
+                        <label for="dataInicioPrevista">Data de Início Prevista*</label>
+                        <p-calendar id="dataInicioPrevista" formControlName="dataInicioPrevista" [showTime]="true"></p-calendar>
+                    </div>
+                    <div class="ui-g-6 ui-sm-12 p-field">
+                        <label for="dataTerminoPrevista">Data de Término Prevista*</label>
+                        <p-calendar id="dataTerminoPrevista" formControlName="dataTerminoPrevista" [showTime]="true"></p-calendar>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-6 ui-sm-12 p-field">
+                        <label for="tipo">Tipo*</label>
+                        <input pInputText type="text" id="tipo" formControlName="tipo" maxLength="50">
+                    </div>
+                    <div class="ui-g-6 ui-sm-12 p-field">
+                        <label for="status">Status*</label>
+                        <input readonly="true" pInputText type="text" id="status" formControlName="status" maxLength="50">
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-6 ui-sm-12 p-field">
+                        <label for="tempoPrevisto">Tempo Previsto*</label>
+                        <p-calendar id="tempoPrevisto" formControlName="tempoPrevisto" [showTime]="true"></p-calendar>
+                    </div>
+                    <div class="ui-g-6 ui-sm-12 p-field" *ngIf="tarefa.id">
+                        <label for="tempoGasto">Tempo Gasto</label>
+                        <p-calendar id="tempoGasto" formControlName="tempoGasto" [showTime]="true"></p-calendar>
+                    </div>
+                </div>
+                <div class="ui-g-12" *ngIf="tarefa.id">
+                    <div class="ui-g-6 ui-sm-12 p-field">
+                        <label for="dataInicio">Data de Início</label>
+                        <p-calendar id="dataInicio" disabled="true" formControlName="dataInicio" [showTime]="true"></p-calendar>
+                    </div>
+                    <div class="ui-g-6 ui-sm-12 p-field">
+                        <label for="dataConclusao">Data de Conclusão</label>
+                        <p-calendar id="dataConclusao" disabled="true" formControlName="dataConclusao" [showTime]="true"></p-calendar>
+                    </div>
+                </div>
+            </div>
+            <p-fieldset legend="Anexos">
+                <div class="ui-g-4">
+                    <p-fileUpload #fileUpload mode="basic" multiple="false" name="upload" auto="false"
+                                  accept=".jpeg, .jpg, .pdf, .png" chooseLabel="Adicionar"
+                                  (onSelect)="enviarAnexo($event)"></p-fileUpload>
+                </div>
+                <div class="ui-g-12">
+                    <p-table [value]="anexos" [scrollable]="true" [responsive]="true" scrollHeight="150px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>
+                                    Título
+                                </th>
+                                <th>
+                                    Tamanho
+                                </th>
+                                <th>
+                                    Ação
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                            <tr>
+                                <td>
+                                    <span class="ui-column-title">Título:</span>
+                                    {{rowData.titulo}}
+                                </td>
+                                <td>
+                                    <span class="ui-column-title">Tamanho:</span>
+                                    {{rowData.tamanhoBytes}}
+                                </td>
+                                <td>
+                                    <button pButton type="button" class="ui-button-danger margin-left-50px" icon="pi pi-times"
+                                            pTooltip="Remover" (click)="removerAnexo()">
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-fieldset>
+        </p-fieldset>
+
+        <p-footer>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-4 ui-sm-12 ui-g-offset-0 ui-sm-offset-0">
+                    <button type="button" pButton label="Cancelar" icon="pi pi-times"
+                            class="ui-button-danger" routerLink="/tarefas"></button>
+                </div>
+                <div class="ui-g-4 ui-sm-12 ui-g-offset-4 ui-sm-offset-0">
+                    <button pButton [formGroup]="formTarefa" type="submit" icon="pi pi-save"
+                            label="Salvar"></button>
+                </div>
+            </div>
+        </p-footer>
+    </form>
+
+</p-card>
