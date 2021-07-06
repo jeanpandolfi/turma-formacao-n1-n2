@@ -5,6 +5,7 @@ import com.jeanpandolfi.tarefaservice.domain.document.TarefaDocument;
 import com.jeanpandolfi.tarefaservice.repository.TarefaRepository;
 import com.jeanpandolfi.tarefaservice.service.dto.TarefaDTO;
 import com.jeanpandolfi.tarefaservice.service.event.TarefaEvent;
+import com.jeanpandolfi.tarefaservice.service.filtro.TarefaFiltro;
 import com.jeanpandolfi.tarefaservice.service.mapper.TarefaMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class TarefaService implements AbstractService<TarefaDTO>{
+public class TarefaService implements AbstractService<TarefaDTO, TarefaFiltro>{
 
     private final TarefaRepository tarefaRepository;
     private final TarefaMapper tarefaMapper;
@@ -33,7 +34,7 @@ public class TarefaService implements AbstractService<TarefaDTO>{
 
     @Override
     @Transactional(readOnly = true)
-    public Page<TarefaDTO> obterTodos(Pageable pageable) {
+    public Page<TarefaDTO> obterTodos(TarefaFiltro filtro, Pageable pageable) {
         return tarefaRepository.findAll(pageable).map(tarefaMapper::toDto);
     }
 

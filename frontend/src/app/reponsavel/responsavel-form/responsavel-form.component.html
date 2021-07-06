@@ -1,0 +1,42 @@
+<p-card header="Responsável">
+    <form [formGroup]="formResponsavel" (ngSubmit)="salvar(formResponsavel)" novalidate>
+        <p-fieldset legend="Dados do Responsável">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <div class="ui-g-6 ui-sm-12 p-field">
+                        <label for="nome">Nome*</label>
+                        <input pInputText type="text" id="nome" formControlName="nome">
+                    </div>
+                    <div class="ui-g-6 ui-sm-12 p-field">
+                        <label for="nome">Email*</label>
+                        <input pInputText type="text" id="email"formControlName="email" >
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-6 ui-sm-12 p-field">
+                        <label for="dataNascimento">Data de Nascimento*</label>
+                        <p-calendar id="dataNascimento" formControlName="dataNascimento" [locale]="dataBr" dateFormat="dd/mm/yy"> </p-calendar>
+                    </div>
+                    <div class="ui-g-6 ui-sm-12 p-field">
+                        <label for="status">Status</label>
+                        <input pInputText type="text" id="status" formControlName="status" maxLength="50" [readOnly]="!editar">
+                    </div>
+                </div>
+            </div>
+        </p-fieldset>
+
+        <p-footer>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-4 ui-sm-12 ui-g-offset-0 ui-sm-offset-0">
+                    <button type="button" pButton label="Cancelar" icon="pi pi-times"
+                             class="ui-button-danger" routerLink="/responsaveis"></button>
+                </div>
+                <div class="ui-g-4 ui-sm-12 ui-g-offset-4 ui-sm-offset-0">
+                    <button pButton [formGroup]="formResponsavel" type="submit" icon="pi pi-save"
+                            label="Salvar"></button>
+                </div>
+            </div>
+        </p-footer>
+    </form>
+
+</p-card>

@@ -1,7 +1,9 @@
 package com.jeanpandolfi.tarefaservice.web.rest;
 
+import com.jeanpandolfi.tarefaservice.domain.Anexo;
 import com.jeanpandolfi.tarefaservice.service.AnexoService;
 import com.jeanpandolfi.tarefaservice.service.dto.AnexoDTO;
+import com.jeanpandolfi.tarefaservice.service.filtro.AnexoFiltro;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -31,8 +33,8 @@ public class AnexoResource {
     }
 
     @GetMapping
-    public ResponseEntity<Page<AnexoDTO>> obterTodos(Pageable pageable){
-        return ResponseEntity.ok(anexoService.obterTodos(pageable));
+    public ResponseEntity<Page<AnexoDTO>> obterTodos(AnexoFiltro filtro, Pageable pageable){
+        return ResponseEntity.ok(anexoService.obterTodos(filtro, pageable));
     }
 
     @GetMapping("/{id}")

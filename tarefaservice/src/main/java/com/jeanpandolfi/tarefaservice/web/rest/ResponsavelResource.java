@@ -1,11 +1,14 @@
 package com.jeanpandolfi.tarefaservice.web.rest;
 
+import com.jeanpandolfi.tarefaservice.domain.Responsavel;
 import com.jeanpandolfi.tarefaservice.service.dto.ResponsavelDTO;
 import com.jeanpandolfi.tarefaservice.service.ResponsavelService;
+import com.jeanpandolfi.tarefaservice.service.filtro.ResponsavelFiltro;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,9 +37,9 @@ public class ResponsavelResource {
         return ResponseEntity.ok(responsavelService.save(responsavelDTO));
     }
 
-    @GetMapping
-    public ResponseEntity<Page<ResponsavelDTO>> obterTodos(Pageable pageable){
-        return ResponseEntity.ok(responsavelService.obterTodos(pageable));
+    @PostMapping("/filter")
+    public ResponseEntity<Page<ResponsavelDTO>> obterTodos(@RequestBody ResponsavelFiltro filtro, Pageable pageable){
+        return ResponseEntity.ok(responsavelService.obterTodos(filtro, pageable));
     }
 
     @GetMapping("/{id}")
@@ -48,5 +51,12 @@ public class ResponsavelResource {
     public ResponseEntity<Void> deletarPorId(@PathVariable Long id){
         responsavelService.deletarPorId(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<Void> redirect(){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Location", "https://www.google.com/");
+        return ResponseEntity.status(302).headers(httpHeaders).build();
     }
 }

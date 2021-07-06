@@ -5,6 +5,7 @@ import com.jeanpandolfi.tarefaservice.repository.AnexoRepository;
 import com.jeanpandolfi.tarefaservice.service.dto.AnexoDTO;
 import com.jeanpandolfi.tarefaservice.service.dto.DocumentoDTO;
 import com.jeanpandolfi.tarefaservice.service.feign.DocumentoFeignClient;
+import com.jeanpandolfi.tarefaservice.service.filtro.AnexoFiltro;
 import com.jeanpandolfi.tarefaservice.service.mapper.AnexoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,7 +23,7 @@ import static java.util.Objects.requireNonNull;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class AnexoService implements AbstractService<AnexoDTO>{
+public class AnexoService implements AbstractService<AnexoDTO, AnexoFiltro>{
 
     private final AnexoRepository anexoRepository;
     private final AnexoMapper anexoMapper;
@@ -38,7 +39,7 @@ public class AnexoService implements AbstractService<AnexoDTO>{
 
     @Override
     @Transactional(readOnly = true)
-    public Page<AnexoDTO> obterTodos(Pageable pageable) {
+    public Page<AnexoDTO> obterTodos(AnexoFiltro filtro, Pageable pageable) {
         return anexoRepository.findAll(pageable).map(anexoMapper::toDto);
     }
 

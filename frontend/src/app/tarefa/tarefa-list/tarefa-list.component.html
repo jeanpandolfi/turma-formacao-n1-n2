@@ -1,0 +1,70 @@
+<p-card header="Tarefas">
+    <div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-3 ui-sm-12 ui-g-offset-0 ui-sm-offset-0">
+                <button pButton type="button" icon="pi pi-plus" label="Novo" (click)="novo()" ></button>
+            </div>
+            <div class="ui-g-3 ui-sm-12 ui-g-offset-6 ui-sm-offset-0">
+                <p-dropdown [options]="responsaveis" (onChange)="buscarTarefas($event)"></p-dropdown>
+            </div>
+        </div>
+    </div>
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+
+            <p-table #tabela [columns]="cols" [lazy]="true" responsive="true" sortField="nome" [rows]="20"
+                     [rowsPerPageOptions]="[20, 30, 50]" [paginator]="true" [value]="tarefas.content" selectionMode="single"
+                     [(selection)]="tarefaSelecionada" dataKey="id" [totalRecords]="tarefas.totalElements"
+                     (onPage)="buscarTarefas()" (onSort)="buscarTarefas()" (onRowSelect)="router.navigateByUrl('/tarefa/'+tarefaSelecionada.id)">
+
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns"  class="background-color-dark">
+                            <span class="color-header-table">{{col.header}}</span>
+                            <p-sortIcon *ngIf="col.sortField" [field]="col.sortField" [pSortableColumn]="col.sortField">
+                            </p-sortIcon>
+                        </th>
+                    </tr>
+<!--                    <tr>-->
+<!--                        <th>-->
+<!--                            <input pInputText type="text" [(ngModel)]="filtro.nome" (change)="buscarTarefas()"-->
+<!--                                   class="ui-column-filter">-->
+<!--                        </th>-->
+<!--                        <th >-->
+<!--                            <input pInputText type="text" [(ngModel)]="filtro.email" (change)="buscarTarefas()"-->
+<!--                                   class="ui-column-filter">-->
+<!--                        </th>-->
+<!--                        <th class="background-color-white">-->
+<!--                            <input pInputText type="text" [(ngModel)]="filtro.status" (change)="buscarTarefas()"-->
+<!--                                   class="ui-column-filter">-->
+<!--                        </th>-->
+<!--                    </tr>-->
+                </ng-template>
+
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData">
+                        <td *ngFor="let col of columns">
+                            <ng-template [ngIf]="col.text">
+                                <span class="ui-column-title">{{col.header}}:</span>
+                                {{rowData[col.field]}}
+                            </ng-template>
+                            <ng-template [ngIf]="!col.text">
+                                <span class="ui-column-title">{{col.header}}:</span>
+                                {{rowData[col.field] | date:'dd/MM/yyyy h:mm'  }}
+                            </ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="columns.length">
+                            Nenhum registro encontrado
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </div>
+    </div>
+</p-card>
