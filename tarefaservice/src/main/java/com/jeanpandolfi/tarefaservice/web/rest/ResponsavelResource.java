@@ -3,6 +3,7 @@ package com.jeanpandolfi.tarefaservice.web.rest;
 import com.jeanpandolfi.tarefaservice.domain.Responsavel;
 import com.jeanpandolfi.tarefaservice.service.dto.ResponsavelDTO;
 import com.jeanpandolfi.tarefaservice.service.ResponsavelService;
+import com.jeanpandolfi.tarefaservice.service.dto.SelectItemDTO;
 import com.jeanpandolfi.tarefaservice.service.filtro.ResponsavelFiltro;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -53,10 +56,8 @@ public class ResponsavelResource {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public ResponseEntity<Void> redirect(){
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Location", "https://www.google.com/");
-        return ResponseEntity.status(302).headers(httpHeaders).build();
+    @GetMapping("/dropdown")
+    public ResponseEntity<List<SelectItemDTO>> prrencherDropDown(){
+        return ResponseEntity.ok(responsavelService.preencherDropDown());
     }
 }

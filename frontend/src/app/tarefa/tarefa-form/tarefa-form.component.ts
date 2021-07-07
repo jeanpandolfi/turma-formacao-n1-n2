@@ -28,11 +28,6 @@ export class TarefaFormComponent implements OnInit {
     visualizar = false;
 
     responsaveis: SelectItem[] = [];
-    tiposArquivosPermitidos = [
-        'application/pdf',
-        'image/jpeg',
-        'image/png',
-    ];
 
     constructor(private fb: FormBuilder,
                 private pageNotificationService: PageNotificationService,
@@ -101,23 +96,15 @@ export class TarefaFormComponent implements OnInit {
 
     enviarAnexo(evento) {
         const anexo = evento.files[0];
-        if (!this.tiposArquivosPermitidos.some(type => type === anexo.type)) {
-            this.pageNotificationService.addErrorMessage('São permitidos apenas os formatos: ".pdf", ".png", ".jpeg", ".jpg"');
-            this.fileUpload.clear();
-            return;
-        }
         this.blockUI.start();
-        console.log(anexo);
-        this.anexoService.salvar(anexo)
+        this.anexoService.salvar(anexo, 2)
             .pipe(finalize(() => {
                 this.blockUI.stop();
             }))
             .subscribe(
                 (res) => {
-                    // if (res.body) {
-                    //     this.detalheDocumentoProposicao.arquivoUpload = res.body;
-                    //     this.arquivos = [res.body];
-                    // }
+                    console.log(res);
+                    this.anexos = res;
                 },
                 (err) => {
                     this.pageNotificationService.addErrorMessage(err.error.detail);

@@ -17,7 +17,7 @@ import { ResponsavelListComponent } from './reponsavel/responsavel-list/responsa
 import { ResponsavelFormComponent } from './reponsavel/responsavel-form/responsavel-form.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { TarefaListComponent } from './tarefa/tarefa-list/tarefa-list.component';
-import { TarefaFormComponent } from './tarefa/tarefa-component/tarefa-form.component';
+import { TarefaFormComponent } from './tarefa/tarefa-form/tarefa-form.component';
 
 @NgModule({
     declarations: [

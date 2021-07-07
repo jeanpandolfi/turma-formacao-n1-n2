@@ -5,13 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
+import java.io.Serializable;
+
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DocumentoDTO {
+public class AnexoListDTO implements Serializable {
 
-    private String uuid;
-    private byte[] file;
+    private Long id;
+
+    private String titulo;
+
+    private Long tamanho;
 
 }
