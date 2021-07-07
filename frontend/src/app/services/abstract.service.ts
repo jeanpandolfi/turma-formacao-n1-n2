@@ -2,11 +2,12 @@ import { Table } from 'primeng/table';
 import { Observable } from 'rxjs';
 import { RequestUtil } from '../util/request-util';
 import {environment} from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 export abstract class AbstractService {
 
     baseUrl;
-    http;
+    http: HttpClient;
     entity;
 
     constructor(http, entity, servicoUrl) {

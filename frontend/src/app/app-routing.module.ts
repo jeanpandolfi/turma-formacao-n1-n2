@@ -5,7 +5,7 @@ import { LoginSuccessComponent } from '@nuvem/angular-base';
 import { ResponsavelFormComponent } from './reponsavel/responsavel-form/responsavel-form.component';
 import { ResponsavelListComponent } from './reponsavel/responsavel-list/responsavel-list.component';
 import { TarefaListComponent } from './tarefa/tarefa-list/tarefa-list.component';
-import { TarefaFormComponent } from './tarefa/tarefa-component/tarefa-form.component';
+import { TarefaFormComponent } from './tarefa/tarefa-form/tarefa-form.component';
 
 const routes: Routes = [
     { path: 'diario-erros', component: DiarioErrosComponent, data: { breadcrumb: 'Diário de Erros'} },

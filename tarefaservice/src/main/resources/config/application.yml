@@ -20,6 +20,12 @@ spring:
     change-log: classpath:/config/liquibase/master.xml
     drop-first: false
 
+logging:
+  level:
+    liquibase: INFO
+    ROOT: INFO
+    com.jeanpandolfi.tarefaservice: DEBUG
+
 application:
   feign:
     documento: http://localhost:8081

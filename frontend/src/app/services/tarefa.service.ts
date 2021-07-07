@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {AbstractService} from "./abstract.service";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
-import {Observable} from "rxjs";
-import {Tarefa} from '../model/tarefa.model';
+import { Injectable } from '@angular/core';
+import { AbstractService } from './abstract.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { Tarefa } from '../model/tarefa.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,11 @@ export class TarefaService extends AbstractService {
         return this.http.get(`${this.baseUrl}/${this.entity}`);
     }
 
-    salvar(responsavel: Tarefa): Observable<Tarefa> {
-        return this.http.post(`${this.baseUrl}/${this.entity}`, responsavel);
+    salvar(tarefa: Tarefa): Observable<Tarefa> {
+        return this.http.post<Tarefa>(`${this.baseUrl}/${this.entity}`, tarefa);
     }
 
     buscar(id: number): Observable<Tarefa> {
-        return this.http.get(`${this.baseUrl}/${this.entity}/${id}`);
+        return this.http.get<Tarefa>(`${this.baseUrl}/${this.entity}/${id}`);
     }
 }

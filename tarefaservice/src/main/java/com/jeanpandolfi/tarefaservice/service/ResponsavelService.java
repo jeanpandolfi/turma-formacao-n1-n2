@@ -3,6 +3,7 @@ package com.jeanpandolfi.tarefaservice.service;
 import com.jeanpandolfi.tarefaservice.domain.Responsavel;
 import com.jeanpandolfi.tarefaservice.repository.ResponsavelRepository;
 import com.jeanpandolfi.tarefaservice.service.dto.ResponsavelDTO;
+import com.jeanpandolfi.tarefaservice.service.dto.SelectItemDTO;
 import com.jeanpandolfi.tarefaservice.service.filtro.ResponsavelFiltro;
 import com.jeanpandolfi.tarefaservice.service.mapper.ResponsavelMapper;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -44,5 +47,9 @@ public class ResponsavelService implements AbstractService<ResponsavelDTO, Respo
     @Override
     public void deletarPorId(Long id) {
         responsavelRepository.deleteById(id);
+    }
+
+    public List<SelectItemDTO> preencherDropDown() {
+        return  responsavelRepository.findDropDown();
     }
 }

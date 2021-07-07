@@ -56,13 +56,13 @@
             <p-fieldset legend="Anexos">
                 <div class="ui-g-4">
                     <p-fileUpload #fileUpload mode="basic" multiple="false" name="upload" auto="false"
-                                  accept=".jpeg, .jpg, .pdf, .png" chooseLabel="Adicionar"
+                                  chooseLabel="Adicionar"
                                   (onSelect)="enviarAnexo($event)"></p-fileUpload>
                 </div>
                 <div class="ui-g-12">
-                    <p-table [value]="anexos" [scrollable]="true" [responsive]="true" scrollHeight="150px">
+                    <p-table [value]="anexos" [scrollable]="true" [responsive]="true" scrollHeight="250px">
                         <ng-template pTemplate="header">
-                            <tr>
+                            <tr class="background-color-dark">
                                 <th>
                                     Título
                                 </th>
@@ -82,11 +82,14 @@
                                 </td>
                                 <td>
                                     <span class="ui-column-title">Tamanho:</span>
-                                    {{rowData.tamanhoBytes}}
+                                    {{rowData.titulo}}
                                 </td>
                                 <td>
                                     <button pButton type="button" class="ui-button-danger margin-left-50px" icon="pi pi-times"
                                             pTooltip="Remover" (click)="removerAnexo()">
+                                    </button>
+                                    <button pButton type="button" class="margin-left-50px" icon="pi pi-download"
+                                            pTooltip="Fazer Download" (click)="removerAnexo()">
                                     </button>
                                 </td>
                             </tr>

@@ -12,33 +12,47 @@
     <div class="ui-g ui-fluid">
         <div class="ui-g-12">
 
-            <p-table #tabela [columns]="cols" [lazy]="true" responsive="true" sortField="nome" [rows]="20"
+            <p-table #tabela [columns]="cols" [lazy]="true" responsive="true" [rows]="20"
                      [rowsPerPageOptions]="[20, 30, 50]" [paginator]="true" [value]="tarefas.content" selectionMode="single"
                      [(selection)]="tarefaSelecionada" dataKey="id" [totalRecords]="tarefas.totalElements"
                      (onPage)="buscarTarefas()" (onSort)="buscarTarefas()" (onRowSelect)="router.navigateByUrl('/tarefa/'+tarefaSelecionada.id)">
 
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th *ngFor="let col of columns"  class="background-color-dark">
+                        <th *ngFor="let col of columns"  class="background-color-dark" [pSortableColumn]="col.sortField">
                             <span class="color-header-table">{{col.header}}</span>
-                            <p-sortIcon *ngIf="col.sortField" [field]="col.sortField" [pSortableColumn]="col.sortField">
-                            </p-sortIcon>
                         </th>
                     </tr>
-<!--                    <tr>-->
-<!--                        <th>-->
-<!--                            <input pInputText type="text" [(ngModel)]="filtro.nome" (change)="buscarTarefas()"-->
-<!--                                   class="ui-column-filter">-->
-<!--                        </th>-->
-<!--                        <th >-->
-<!--                            <input pInputText type="text" [(ngModel)]="filtro.email" (change)="buscarTarefas()"-->
-<!--                                   class="ui-column-filter">-->
-<!--                        </th>-->
-<!--                        <th class="background-color-white">-->
-<!--                            <input pInputText type="text" [(ngModel)]="filtro.status" (change)="buscarTarefas()"-->
-<!--                                   class="ui-column-filter">-->
-<!--                        </th>-->
-<!--                    </tr>-->
+                    <tr>
+                        <th>
+                            <input pInputText type="text" [(ngModel)]="filtro.titulo" (change)="buscarTarefas()"
+                                   class="ui-column-filter">
+                        </th>
+                        <th >
+                            <input pInputText type="text" [(ngModel)]="filtro.dataInicioPrevista" (change)="buscarTarefas()"
+                                   class="ui-column-filter">
+                        </th>
+                        <th>
+                            <input pInputText type="text" [(ngModel)]="filtro.dataTerminoPrevista" (change)="buscarTarefas()"
+                                   class="ui-column-filter">
+                        </th>
+                        <th >
+                            <input pInputText type="text" [(ngModel)]="filtro.tipo" (change)="buscarTarefas()"
+                                   class="ui-column-filter">
+                        </th>
+                        <th >
+                            <input pInputText type="text" [(ngModel)]="filtro.status" (change)="buscarTarefas()"
+                                   class="ui-column-filter">
+                        </th>
+                        <th >
+
+                        </th>
+                        <th >
+                            <input pInputText type="text" [(ngModel)]="filtro.responsavelNome" (change)="buscarTarefas()"
+                                   class="ui-column-filter">
+                        </th>
+
+                    </tr>
                 </ng-template>
 
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -50,7 +64,7 @@
                             </ng-template>
                             <ng-template [ngIf]="!col.text">
                                 <span class="ui-column-title">{{col.header}}:</span>
-                                {{rowData[col.field] | date:'dd/MM/yyyy h:mm'  }}
+                                {{rowData[col.field] | date:'dd/MM/yyyy hh:mm'  }}
                             </ng-template>
                         </td>
                     </tr>

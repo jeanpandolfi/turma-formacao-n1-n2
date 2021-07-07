@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
+import java.io.Serializable;
+
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
-public class DocumentoDTO {
+@AllArgsConstructor
+public class SelectItemDTO implements Serializable {
 
-    private String uuid;
-    private byte[] file;
-
+    private Long value;
+    private String label;
 }
