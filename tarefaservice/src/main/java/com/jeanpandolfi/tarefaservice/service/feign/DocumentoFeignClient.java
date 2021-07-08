@@ -1,6 +1,5 @@
 package com.jeanpandolfi.tarefaservice.service.feign;
 
-import com.jeanpandolfi.tarefaservice.service.dto.DocumentoDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

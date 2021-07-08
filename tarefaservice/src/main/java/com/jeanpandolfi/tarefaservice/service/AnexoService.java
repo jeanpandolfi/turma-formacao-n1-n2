@@ -4,7 +4,6 @@ import com.jeanpandolfi.tarefaservice.domain.Anexo;
 import com.jeanpandolfi.tarefaservice.repository.AnexoRepository;
 import com.jeanpandolfi.tarefaservice.service.dto.AnexoDTO;
 import com.jeanpandolfi.tarefaservice.service.dto.AnexoListDTO;
-import com.jeanpandolfi.tarefaservice.service.dto.DocumentoDTO;
 import com.jeanpandolfi.tarefaservice.service.feign.DocumentoFeignClient;
 import com.jeanpandolfi.tarefaservice.service.filtro.AnexoFiltro;
 import com.jeanpandolfi.tarefaservice.service.mapper.AnexoMapper;
@@ -19,11 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Objects;
-import java.util.Random;
-import java.util.UUID;
-
-import static java.util.Objects.requireNonNull;
 
 
 @Service
