@@ -27,6 +27,7 @@ export class TarefaListComponent implements OnInit {
     tarefas: Page<TarefaList> = new Page;
 
     responsaveis: SelectItem[] = [];
+    responsavelSelecionado: SelectItem;
 
     cols = [
         {field: 'titulo', header: 'Título', sortField: 'titulo.keyword', text: true},
@@ -68,6 +69,8 @@ export class TarefaListComponent implements OnInit {
             .subscribe((res) => {
                 res.unshift({value: 0, label: 'Todos'});
                 this.responsaveis = res;
+                this.responsavelSelecionado = this.responsaveis.find(r => r.value == localStorage.getItem('RESPONSAVEL'));
+                console.log(this.responsavelSelecionado)
             }, (err) => this.pageNotificationService.addErrorMessage("ERRO"));
     }
 

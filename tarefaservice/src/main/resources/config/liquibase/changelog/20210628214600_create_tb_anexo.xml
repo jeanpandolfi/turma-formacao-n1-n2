@@ -51,5 +51,9 @@
                                  referencedColumnNames="id"/>
     </changeSet>
 
-
+    <changeSet id="20210723224600" author="jean.pandolfi">
+        <modifyDataType tableName="anexo"
+                        columnName="tipo"
+                        newDataType="varchar(100)"/>
+    </changeSet>
  </databaseChangeLog>

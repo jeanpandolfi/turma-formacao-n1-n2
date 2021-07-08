@@ -3,6 +3,7 @@ package com.jeanpandolfi.tarefaservice.web.rest;
 import com.jeanpandolfi.tarefaservice.service.AnexoService;
 import com.jeanpandolfi.tarefaservice.service.dto.AnexoDTO;
 import com.jeanpandolfi.tarefaservice.service.dto.AnexoListDTO;
+import com.jeanpandolfi.tarefaservice.service.dto.DocumentoDTO;
 import com.jeanpandolfi.tarefaservice.service.filtro.AnexoFiltro;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 
@@ -43,6 +45,16 @@ public class AnexoResource {
     @GetMapping("/{id}")
     public ResponseEntity<AnexoDTO> obterPorId(@PathVariable Long id){
         return ResponseEntity.ok(anexoService.obterPorId(id));
+    }
+
+    @GetMapping("/tarefa/{idTarefa}")
+    public ResponseEntity<List<AnexoListDTO>> buscarAnexosTarefa(@PathVariable Long idTarefa){
+        return ResponseEntity.ok(anexoService.buscarAnexosTarefa(idTarefa));
+    }
+
+    @GetMapping("/download/{idAnexo}")
+    public ResponseEntity<InputStream> download(@PathVariable Long idAnexo){
+        return ResponseEntity.ok(anexoService.dowload(idAnexo));
     }
 
     @DeleteMapping("/{id}")

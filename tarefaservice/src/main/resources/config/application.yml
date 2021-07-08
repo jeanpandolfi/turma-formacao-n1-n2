@@ -20,6 +20,10 @@ spring:
     change-log: classpath:/config/liquibase/master.xml
     drop-first: false
 
+  servlet:
+    multipart.max-file-size: 50MB
+    multipart.max-request-size: 50MB
+
 logging:
   level:
     liquibase: INFO

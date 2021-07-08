@@ -4,7 +4,9 @@ server:
 spring:
   application:
     name: documentoservice
-
+  servlet:
+    multipart.max-file-size: 50MB
+    multipart.max-request-size: 50MB
 application:
   minio:
     url: http://localhost:9000

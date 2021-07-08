@@ -16,14 +16,14 @@ export class ResponsavelService extends AbstractService {
     }
 
     buscarDropDown(): Observable<SelectItem[]> {
-        return this.http.get(`${this.baseUrl}/${this.entity}/dropdown`);
+        return this.http.get<SelectItem[]>(`${this.baseUrl}/${this.entity}/dropdown`);
     }
 
     salvar(responsavel: Responsavel): Observable<Responsavel> {
-        return this.http.post(`${this.baseUrl}/${this.entity}`, responsavel);
+        return this.http.post<Responsavel>(`${this.baseUrl}/${this.entity}`, responsavel);
     }
 
     buscar(id: number): Observable<Responsavel> {
-        return this.http.get(`${this.baseUrl}/${this.entity}/${id}`);
+        return this.http.get<Responsavel>(`${this.baseUrl}/${this.entity}/${id}`);
     }
 }

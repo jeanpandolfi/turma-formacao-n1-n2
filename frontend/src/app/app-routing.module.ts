@@ -33,12 +33,10 @@ const routes: Routes = [
         path: 'tarefa',
         component: TarefaFormComponent,
         data: { breadcrumb: 'Tarefa'},
-        children: [
-            {
-                path: ':id',
-                component: TarefaFormComponent
-            }
-        ]
+    },
+    {
+        path: 'tarefa/:id',
+        component: TarefaFormComponent,
     }
 ];
 

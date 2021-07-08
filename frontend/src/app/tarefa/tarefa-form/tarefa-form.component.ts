@@ -25,7 +25,7 @@ export class TarefaFormComponent implements OnInit {
     tarefa: Tarefa = new Tarefa();
     anexo: any;
     anexos: any[] = [];
-    visualizar = false;
+    editar = false;
 
     responsaveis: SelectItem[] = [];
 
@@ -39,22 +39,21 @@ export class TarefaFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.montarFormulario();
-        // this.verificarAcao();
+        this.verificarAcao();
     }
 
     verificarAcao() {
-        this.activatedRoute.paramMap.subscribe(params => {
-            if (params['id']) {
-                this.buscarTarefa(params['id']);
-            }
-            if (params['acao']) {
-                this.visualizar = true;
-            }
-        });
+        if (this.activatedRoute.snapshot.paramMap.get('id')) {
+            this.editar = true;
+            const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+            this.buscarTarefa(id);
+            this.buscarAnexosTarefa(id);
+        }
     }
 
     montarFormulario() {
         this.formTarefa = this.fb.group({
+            'id': new FormControl(null),
             'titulo': new FormControl('', [Validators.required]),
             'descricao': new FormControl('', [Validators.required]),
             'dataInicioPrevista': new FormControl(null, [Validators.required]),
@@ -62,7 +61,7 @@ export class TarefaFormComponent implements OnInit {
             'dataInicio': new FormControl(null),
             'dataConclusao': new FormControl(null),
             'tipo': new FormControl('', [Validators.required]),
-            'status': new FormControl('AGUARDANDO INÍCIO', [Validators.required]),
+            'status': new FormControl('', [Validators.required]),
             'tempoPrevisto': new FormControl(null, [Validators.required]),
             'tempoGasto': new FormControl(null),
         });
@@ -74,12 +73,12 @@ export class TarefaFormComponent implements OnInit {
             return;
         }
         this.tarefa = formResponsavel.getRawValue();
-        this.tarefa.idResponsavel = 1;
+        this.tarefa.idResponsavel = Number(localStorage.getItem('RESPONSAVEL'));
         this.blockUI.start(MensagemUtil.CARREGANDO);
         this.tarefaService.salvar(this.tarefa)
             .pipe(finalize(() => this.blockUI.stop()))
             .subscribe((res: Tarefa) => {
-                // this.router.navigateByUrl('/tarefa' + res.id);
+                this.router.navigateByUrl('/tarefa/' + res.id);
                 this.pageNotificationService.addCreateMsg(MensagemUtil.CADASTRO_REALIZADO_SUCESSO);
             }, (err) => this.pageNotificationService.addErrorMessage("ERRO"));
     }
@@ -89,34 +88,66 @@ export class TarefaFormComponent implements OnInit {
         this.tarefaService.buscar(id)
             .pipe(finalize(() => this.blockUI.stop()))
             .subscribe((res: Tarefa) => {
-                console.log(res);
-                // this.formResponsavel.reset(res);
+                res.dataInicioPrevista = new Date(res.dataInicioPrevista);
+                res.dataTerminoPrevista = new Date(res.dataTerminoPrevista);
+                res.dataConclusao = new Date(res.dataConclusao);
+                res.dataInicio = new Date(res.dataInicio);
+                res.tempoGasto = new Date(res.tempoGasto);
+                res.tempoPrevisto = new Date(res.tempoPrevisto);
+                this.tarefa = res;
+                this.formTarefa.reset(res);
             }, (err) => this.pageNotificationService.addErrorMessage("ERRO"));
     }
 
     enviarAnexo(evento) {
+        if (!this.tarefa.idResponsavel) {
+            this.pageNotificationService.addInfoMessage('Crie a tarefa antes de anexar um arquivo');
+            return;
+        }
         const anexo = evento.files[0];
         this.blockUI.start();
-        this.anexoService.salvar(anexo, 2)
+        this.anexoService.salvar(anexo, this.tarefa.id)
             .pipe(finalize(() => {
                 this.blockUI.stop();
+                this.fileUpload.clear();
             }))
             .subscribe(
-                (res) => {
-                    console.log(res);
-                    this.anexos = res;
-                },
-                (err) => {
-                    this.pageNotificationService.addErrorMessage(err.error.detail);
-                }
+                (res) => this.anexos = res,
+                (err) => this.pageNotificationService.addErrorMessage(null,"Erro ao enviar o arquivo")
             );
 
     }
 
-    removerAnexo() {
-        this.fileUpload.clear();
-        // this.detalheDocumentoProposicao.arquivoUpload = null;
-        // this.arquivos = [];
+    removerAnexo(id: number) {
+        this.blockUI.start(MensagemUtil.CARREGANDO);
+        this.anexoService.deletar(id)
+            .pipe(finalize(() => this.blockUI.stop()))
+            .subscribe((res) => {
+                    this.pageNotificationService.addSuccessMessage('Removido!');
+                    this.buscarAnexosTarefa(this.tarefa.id);
+                    this.fileUpload.clear();
+                },
+                (err) => this.pageNotificationService.addErrorMessage("ERRO"));
     }
 
+    private buscarAnexosTarefa(id: number) {
+        this.blockUI.start(MensagemUtil.CARREGANDO);
+        this.anexoService.buscarAnexoTarefa(id)
+            .pipe(finalize(() => this.blockUI.stop()))
+            .subscribe((res) => this.anexos = res,
+                (err) => this.pageNotificationService.addErrorMessage("ERRO"));
+    }
+
+    download(idAnexo: number) {
+        this.blockUI.start(MensagemUtil.CARREGANDO);
+        this.anexoService.download(idAnexo)
+            .pipe(finalize(() => this.blockUI.stop()))
+            .subscribe((res) => {
+                    console.log(res);
+                    this.pageNotificationService.addSuccessMessage('Removido!');
+                    this.buscarAnexosTarefa(this.tarefa.id);
+                    this.fileUpload.clear();
+                },
+                (err) => this.pageNotificationService.addErrorMessage("ERRO"));
+    }
 }

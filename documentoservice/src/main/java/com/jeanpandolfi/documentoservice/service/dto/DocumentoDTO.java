@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.InputStream;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,5 +14,5 @@ import lombok.Setter;
 public class DocumentoDTO {
 
     private String uuid;
-    private String file;
+    private InputStream file;
 }

@@ -33,4 +33,15 @@ export class AnexoService extends AbstractService {
         return this.http.get(`${this.baseUrl}/${this.entity}/${id}`);
     }
 
+    buscarAnexoTarefa(idTarefa: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}/${this.entity}/tarefa/${idTarefa}`);
+    }
+
+    deletar(id: number): Observable<void> {
+        return this.http.delete<void>(`${this.baseUrl}/${this.entity}/${id}`);
+    }
+
+    download(idAnexo: number): Observable<any> {
+        return this.http.get(`${this.baseUrl}/${this.entity}/download/${idAnexo}`);
+    }
 }
