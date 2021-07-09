@@ -1,9 +1,14 @@
 package com.jeanpandolfi.tarefaservice.repository.search;
 
 import com.jeanpandolfi.tarefaservice.domain.document.TarefaDocument;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
-import org.springframework.stereotype.Repository;
+import com.jeanpandolfi.tarefaservice.service.reindex.SearchRepository;
 
-@Repository
-public interface TarefaSearchRepository extends ElasticsearchRepository<TarefaDocument, Long> {
+
+public interface TarefaSearchRepository extends SearchRepository<TarefaDocument, Long> {
+
+    @Override
+    default Class<TarefaDocument> getDocumentClass(){
+        return TarefaDocument.class;
+    }
+
 }

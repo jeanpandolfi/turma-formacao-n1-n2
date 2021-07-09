@@ -43,5 +43,5 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Long> {
             "t.tempoGasto, " +
             "t.responsavel.nome, " +
             "t.responsavel.id) FROM Tarefa t order by t.id")
-    List<TarefaDocument> getDocuments();
+    Page<TarefaDocument> getDocuments(Pageable pageable);
 }

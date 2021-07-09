@@ -51,6 +51,6 @@ public class TarefaService {
 
     @Transactional(readOnly = true)
     public List<TarefaDocument> getDocuments(){
-        return tarefaRepository.getDocuments();
+        return null;
     }
 }

@@ -56,9 +56,9 @@ public class TarefaResource {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/reindex")
-    public ResponseEntity<Void> reindex(){
-        elasticSearchService.reindex();
-        return ResponseEntity.ok().build();
-    }
+//    @GetMapping("/reindex")
+//    public ResponseEntity<Void> reindex(){
+//        elasticSearchService.reindex();
+//        return ResponseEntity.ok().build();
+//    }
 }
